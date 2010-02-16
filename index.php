@@ -149,19 +149,35 @@
         endif;
    
          if(!empty($_perguntas)):?>  
-            <form>
+            <form name="choice" action="?step=finalize" method="POST">
             <?php
-            foreach($_perguntas as $_pergunta):
-                echo "<p>{$_pergunta['pergunta']}</p>";
-            endforeach;
-            ?>
+            foreach($_perguntas as $key => $_pergunta): ?>
+                <fieldset id="pergunta">
+                    <div style="display:block">
+                        <input type="checkbox" name="perguntas[]" value="<?php echo $key;?>" />
+                        <label for="<?php echo $key;?>" >
+                            <?php echo $_pergunta['pergunta'];?>
+                        </label>
+                    </div>
+                    <?php if(file_exists("images/".$key.".jpg")):?>
+                        <img src="images/<?php echo $key?>.jpg" style="float:left" />
+                    <?php endif; ?>
+                    <div style="float:left">
+                        <ol style="list-style-type: lower-alpha;">
+                            <li></li>
+                            <li></li>
+                            <li></li>
+                        </ol>
+                    </div>
+                </fieldset>
+            <?php endforeach; ?>
                 <input value="Criar Prova" type="submit"/>
             </form>
         <?php endif;
-    elseif($_GET["step"] == "finalize"): ?>
+    elseif($_GET["step"] == "finalize"): 
+        pr($_POST);
         
-        
-        <?php endif;
+    endif;
     else:?>
             <a href="?step=filter">Iniciar</a>
             
