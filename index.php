@@ -1,34 +1,38 @@
 <?php
     $perguntas = array();
-    $perguntas["99"] = array("pergunta"=>"Quantos são 20 + 58?",
+    $perguntas[] = array("pergunta"=>"Quantos são 20 + 58?",
                          "repostas"=>array("62","38","78","86"),
                          "corretae"=>"3",
                          "serie"=>"2",
                          "ensino"=>"fundamental",
                          "materia"=>"2",
+                         "id"=>"99"
                          );
-    $perguntas["100"] = array("pergunta"=>"Qual Raiz Quadrada de  9?",
+    $perguntas[] = array("pergunta"=>"Qual Raiz Quadrada de  9?",
                          "repostas"=>array("3","81","4,5","6"),
                          "corretae"=>"1",
                          "serie"=>"5",
                          "ensino"=>"fundamental",
                          "materia"=>"2",
+                         "id"=>"100"
                          );
-    $perguntas["101"] = array("pergunta"=>"Na figura um quadrado foi dividido ao meio, pela diagonal.Depois, a metade superior foi dividida ao meio, e assim sucessivamente.Imagine que seja sempre possivel continuar dividindo a figura<br />
+    $perguntas[] = array("pergunta"=>"Na figura um quadrado foi dividido ao meio, pela diagonal.Depois, a metade superior foi dividida ao meio, e assim sucessivamente.Imagine que seja sempre possivel continuar dividindo a figura<br />
                          Pode-se afirmar que a décima segunda partição da figura encontra-se a representação do número",
                          "repostas"=>array("1/2^10","1/2^12","1/2^13","1/2^15"),
                          "corretae"=>"2",
                          "serie"=>"1",
                          "ensino"=>"medio",
                          "materia"=>"2",
+                         "id"=>"101"
                          );
     
-    $perguntas["91"] = array("pergunta"=>"Nesta figura, quantos cubos pequenos foram colocados juntos para formar o cubo grande?",
+    $perguntas[] = array("pergunta"=>"Nesta figura, quantos cubos pequenos foram colocados juntos para formar o cubo grande?",
                          "repostas"=>array("7","8","12","24"),
                          "corretae"=>"2",
                          "serie"=>"1",
                          "ensino"=>"medio",
                          "materia"=>"2",
+                         "id"=>"91"
                         );
 
     function pr($data){
@@ -52,7 +56,7 @@
         endif;  
     }
    function filtraperguntas($grade = array(), $perguntas = array(), $materia = null){
-        //pr($perguntas);
+       // pr($perguntas);
         #pr($grade);
         foreach($grade as $k=>$i):
             foreach($perguntas as $key=>$pergunta):
@@ -61,7 +65,8 @@
                     foreach($i as $serie):
                         $pergunta['serie'] =!empty($pergunta['serie'])?$pergunta['serie']:null;
                         if($pergunta['serie'] == $serie):
-                           $perguntafiltradas[$key] = $pergunta;
+                           $perguntafiltradas[$pergunta['id']] = $pergunta;
+                           
                         endif;
                     endforeach;
                 endif;
@@ -147,10 +152,11 @@
                 echo "Nenhum criterio selecionado [Notice]";
             endif;
         endif;
-   
+
          if(!empty($_perguntas)):?>  
             <form name="choice" action="?step=finalize" method="POST">
             <?php
+            pr($_perguntas);
             foreach($_perguntas as $key => $_pergunta): ?>
                 <fieldset id="pergunta">
                     <div style="display:block">
@@ -159,14 +165,15 @@
                             <?php echo $_pergunta['pergunta'];?>
                         </label>
                     </div>
-                    <?php if(file_exists("images/".$key.".jpg")):?>
+                    <?php  if(file_exists("images/".$key.".jpg")):?>
                         <img src="images/<?php echo $key?>.jpg" style="float:left" />
                     <?php endif; ?>
-                    <div style="float:left">
+                    <div style="float:left">  
                         <ol style="list-style-type: lower-alpha;">
-                            <li></li>
-                            <li></li>
-                            <li></li>
+                            <?php foreach($_pergunta['repostas'] as $resposta) :?>
+                            <li><?php echo $resposta ?></li>
+                           
+                            <? endforeach;?>
                         </ol>
                     </div>
                 </fieldset>
