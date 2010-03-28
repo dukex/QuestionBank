@@ -1,3 +1,3 @@
 h1. Question Bank
 
-[description]
+The purpose of the program is to create a tool that allows teachers to create customized tests from publicly available items. This program asks the user to make a series of choices (e.g. subject, grade level, etc.) to specify the list of questions she would like to see. The program then displays the list of questions on the screen with a check box next to each, allowing the user to include or not include the question. The user checks the box for the questions he or she would like to choose and the program generates a web page with those questions.
