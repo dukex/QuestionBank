@@ -92,9 +92,10 @@
         <link href="" rel="stylesheet" type="text/css" />
     </head>
     <body>
-    <?php if(!empty($_GET["step"])): 
-        if($_GET["step"] == "filter"): ?>
-            <form name="filter" action="?step=choice" method="POST">
+    <?php 
+		if(!empty($_GET["step"])): 
+        	if($_GET["step"] == "filter"): ?>
+            	<form name="filter" action="?step=choice" method="POST">
                 <select name="materia">
                     <option value=""></option>
                     <option value="1">Português</option>
@@ -123,71 +124,66 @@
                 </fieldset> 
                 <br style="clear:both" />
                 <input value="Filtrar" type="submit"/>
-            </form>
-        
-    <?php elseif($_GET["step"] == "choice"):
-        if(!empty($_POST['materia'])):
-       
-            $pormateria = buscapormateria($_POST['materia'], $perguntas);
-            if(!empty($pormateria)):
-                if(!empty($_POST['grade'])):
-                     $_perguntas = filtraperguntas($_POST['grade'], $pormateria);
-                    if(is_null($_perguntas)):
-                    
-                        echo "Nenhuma questões com os criterios escolhidos [Error]";
-                    endif;
-                else:
-                    $_perguntas = $pormateria;
-                endif;
-            else:
-                echo "Nenhuma questões com essa materia [Error]";
-            endif;
-        else:
-            if(!empty($_POST['grade'])):
-                $_perguntas = filtraperguntas($_POST['grade'], $perguntas);
-                if(is_null($_perguntas)):
-                        echo "Nenhuma questões com os criterios escolhidos [Error]";
-                endif;
-            else:
-                echo "Nenhum criterio selecionado [Notice]";
-            endif;
-        endif;
-
-         if(!empty($_perguntas)):?>  
-            <form name="choice" action="?step=finalize" method="POST">
-            <?php
-            pr($_perguntas);
-            foreach($_perguntas as $key => $_pergunta): ?>
-                <fieldset id="pergunta">
-                    <div style="display:block">
-                        <input type="checkbox" name="perguntas[]" value="<?php echo $key;?>" />
-                        <label for="<?php echo $key;?>" >
-                            <?php echo $_pergunta['pergunta'];?>
-                        </label>
-                    </div>
-                    <?php  if(file_exists("images/".$key.".jpg")):?>
-                        <img src="images/<?php echo $key?>.jpg" style="float:left" />
-                    <?php endif; ?>
-                    <div style="float:left">  
-                        <ol style="list-style-type: lower-alpha;">
-                            <?php foreach($_pergunta['repostas'] as $resposta) :?>
-                            <li><?php echo $resposta ?></li>
-                           
-                            <? endforeach;?>
-                        </ol>
-                    </div>
-                </fieldset>
+            </form>     
+    <?php 	elseif($_GET["step"] == "choice"):
+        		if(!empty($_POST['materia'])):
+       				$pormateria = buscapormateria($_POST['materia'], $perguntas);
+            		if(!empty($pormateria)):
+                		if(!empty($_POST['grade'])):
+                     		$_perguntas = filtraperguntas($_POST['grade'], $pormateria);
+                    		if(is_null($_perguntas)):
+                     			echo "Nenhuma questões com os criterios escolhidos [Error]";
+                    		endif;
+                		else:
+                    		$_perguntas = $pormateria;
+                		endif;
+            		else:
+                		echo "Nenhuma questões com essa materia [Error]";
+            		endif;
+        		else:
+            		if(!empty($_POST['grade'])):
+                		$_perguntas = filtraperguntas($_POST['grade'], $perguntas);
+                		if(is_null($_perguntas)):
+                        	echo "Nenhuma questões com os criterios escolhidos [Error]";
+                		endif;
+            		else:
+                		echo "Nenhum criterio selecionado [Notice]";
+            		endif;
+        		endif;
+         		
+				if(!empty($_perguntas)):?>  
+            		<form name="choice" action="?step=finalize" method="POST">
+            	<?php
+            		pr($_perguntas);
+            		foreach($_perguntas as $key => $_pergunta): ?>
+                		<fieldset id="pergunta">
+                    		<div style="display:block">
+                        		<input type="checkbox" name="perguntas[]" value="<?php echo $key;?>" />
+                        		<label for="<?php echo $key;?>" >
+                            		<?php echo $_pergunta['pergunta'];?>
+                        		</label>
+                    		</div>
+						<?php  if(file_exists("images/".$key.".jpg")):?>
+                        	<img src="images/<?php echo $key?>.jpg" style="float:left" />
+                    	<?php  endif; ?>
+                    		<div style="float:left">  
+                        		<ol style="list-style-type: lower-alpha;">
+                            	<?php foreach($_pergunta['repostas'] as $resposta) :?>
+                            		<li><?php echo $resposta ?></li>
+                            	<?php endforeach;?>
+                        		</ol>
+                    		</div>
+                		</fieldset>
             <?php endforeach; ?>
-                <input value="Criar Prova" type="submit"/>
-            </form>
+                		<input value="Criar Prova" type="submit"/>
+            		</form>
         <?php endif;
-    elseif($_GET["step"] == "finalize"): 
-        pr($_POST);
-        
-    endif;
-    else:?>
-            <a href="?step=filter">Iniciar</a>
-            
-    <?php endif; ?>
+    	elseif($_GET["step"] == "finalize"): 
+        	pr($_POST);
+			//modi
+		endif;
+    else: ?>
+    	<a href="?step=filter">Iniciar</a>        
+ <?php endif;?>
     </body>
 </html>
