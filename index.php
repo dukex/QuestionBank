@@ -1,193 +1,86 @@
-<?php
-    $perguntas = array();
-    $perguntas[] = array("pergunta"=>"Quantos são 20 + 58?",
-                         "repostas"=>array("62","38","78","86"),
-                         "corretae"=>"3",
-                         "serie"=>"2",
-                         "ensino"=>"fundamental",
-                         "materia"=>"2",
-                         "id"=>"99"
-                         );
-    $perguntas[] = array("pergunta"=>"Qual Raiz Quadrada de  9?",
-                         "repostas"=>array("3","81","4,5","6"),
-                         "corretae"=>"1",
-                         "serie"=>"5",
-                         "ensino"=>"fundamental",
-                         "materia"=>"2",
-                         "id"=>"100"
-                         );
-    $perguntas[] = array("pergunta"=>"Na figura um quadrado foi dividido ao meio, pela diagonal.Depois, a metade superior foi dividida ao meio, e assim sucessivamente.Imagine que seja sempre possivel continuar dividindo a figura<br />
-                         Pode-se afirmar que a décima segunda partição da figura encontra-se a representação do número",
-                         "repostas"=>array("1/2^10","1/2^12","1/2^13","1/2^15"),
-                         "corretae"=>"2",
-                         "serie"=>"1",
-                         "ensino"=>"medio",
-                         "materia"=>"2",
-                         "id"=>"101"
-                         );
-    
-    $perguntas[] = array("pergunta"=>"Nesta figura, quantos cubos pequenos foram colocados juntos para formar o cubo grande?",
-                         "repostas"=>array("7","8","12","24"),
-                         "corretae"=>"2",
-                         "serie"=>"1",
-                         "ensino"=>"medio",
-                         "materia"=>"2",
-                         "id"=>"91"
-                        );
+<!--<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+    <title>Question Bank</title>
+</head>
+<body>
+   	<div id="nav">
+   	    <ul>
+   	        <li><a>Create a Test</a></li>
+   	        <li>Take a Test</li>
+   	        <li>Create a Survey</li>
+			<li>Enter Parent Survey Data</li>
+   	    </ul>
+   	</div>
+</body>
+</html>-->
 
-    function pr($data){
-        echo '<pre>'.print_r($data,true).'</pre>';
-    }
-    function buscapormateria($materia = null, $perguntas = array()){
-        if(!empty($materia)):
-            foreach($perguntas as $k=>$pergunta):
-                $pergunta['materia'] = !empty($pergunta['materia'])? $pergunta['materia'] : null;
-                if($pergunta['materia'] == $materia):
-                    $return[] = $pergunta;
-                endif;
-            endforeach;
-            if(!empty($return)):
-                return $return;
-            else:
-                return null;
-            endif;
-        else:
-            return null;
-        endif;  
-    }
-   function filtraperguntas($grade = array(), $perguntas = array(), $materia = null){
-       // pr($perguntas);
-        #pr($grade);
-        foreach($grade as $k=>$i):
-            foreach($perguntas as $key=>$pergunta):
-                $pergunta['ensino'] =!empty($pergunta['ensino'])?$pergunta['ensino']:null;
-                if($pergunta['ensino'] == $k):
-                    foreach($i as $serie):
-                        $pergunta['serie'] =!empty($pergunta['serie'])?$pergunta['serie']:null;
-                        if($pergunta['serie'] == $serie):
-                           $perguntafiltradas[$pergunta['id']] = $pergunta;
-                           
-                        endif;
-                    endforeach;
-                endif;
-            endforeach;
-        endforeach;
-        if(!empty($perguntafiltradas)):
-            return $perguntafiltradas;
-        else:
-            return null;
-        endif;
-    }
-    echo '<?xml version="1.0" encoding="utf-8"?>';
-?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
-    "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="pt-br" lang="pt-br">
-    <head profile="http://gmpg.org/xfn/11">
-        <title> Questions Bank</title>
-        <meta http-equiv="content-language" content="pt-BR" />
-        <meta http-equiv="content-type" content="application/xhtml+xml; charset=UTF-8" />
-        <meta name="author" content="Emerson Vinicius" />
-        <meta name="robots" content="index,follow" />
-        <link href="" rel="stylesheet" type="text/css" />
-    </head>
-    <body>
-    <?php if(!empty($_GET["step"])): 
-        if($_GET["step"] == "filter"): ?>
-            <form name="filter" action="?step=choice" method="POST">
-                <select name="materia">
-                    <option value=""></option>
-                    <option value="1">Português</option>
-                    <option value="2">Matemática</option>
-                </select>
-                <br style="clear:both" />
-                <fieldset style="width:250px;float:left">
-                     <legend>Ensino Fundamental I</legend>
-                    <div style="display:block"><input type="checkbox" name="grade[fundamental][]" value="1" id="f1" /><label for="f1">1º Série</label></div>
-                    <div style="display:block"><input type="checkbox" name="grade[fundamental][]" value="2" id="f2" /><label for="f2">2º Série</label></div>
-                    <div style="display:block"><input type="checkbox" name="grade[fundamental][]" value="3" id="f3" /><label for="f3">3º Série</label></div>
-                    <div style="display:block"><input type="checkbox" name="grade[fundamental][]" value="4" id="f4" /><label for="f4">4º Série</label></div>
-                </fieldset>
-                <fieldset style="width:250px;float:left">
-                    <legend>Ensino Fundamental II</legend>
-                    <div style="display:block"><input type="checkbox" name="grade[fundamental][]" value="5" id="f5" /><label for="f5">5º Série</label></div>
-                    <div style="display:block"><input type="checkbox" name="grade[fundamental][]" value="6" id="f6" /><label for="f6">6º Série</label></div>
-                    <div style="display:block"><input type="checkbox" name="grade[fundamental][]" value="7" id="f7" /><label for="f7">7º Série</label></div>
-                    <div style="display:block"><input type="checkbox" name="grade[fundamental][]" value="8" id="f8" /><label for="f8">8º Série</label></div>
-                </fieldset>
-                <fieldset style="width:250px;float:left">
-                    <legend>Ensino Médio</legend>
-                    <div style="display:block"> <input type="checkbox" name="grade[medio][]" value="1" id="m1" /><label for="m1">1º Ano</label></div>
-                    <div style="display:block"> <input type="checkbox" name="grade[medio][]" value="2" id="m2" /><label for="m2">2º Ano</label></div>
-                    <div style="display:block"> <input type="checkbox" name="grade[medio][]" value="3" id="m3" /><label for="m3">3º Ano</label></div>
-                </fieldset> 
-                <br style="clear:both" />
-                <input value="Filtrar" type="submit"/>
-            </form>
-        
-    <?php elseif($_GET["step"] == "choice"):
-        if(!empty($_POST['materia'])):
-       
-            $pormateria = buscapormateria($_POST['materia'], $perguntas);
-            if(!empty($pormateria)):
-                if(!empty($_POST['grade'])):
-                     $_perguntas = filtraperguntas($_POST['grade'], $pormateria);
-                    if(is_null($_perguntas)):
-                    
-                        echo "Nenhuma questões com os criterios escolhidos [Error]";
-                    endif;
-                else:
-                    $_perguntas = $pormateria;
-                endif;
-            else:
-                echo "Nenhuma questões com essa materia [Error]";
-            endif;
-        else:
-            if(!empty($_POST['grade'])):
-                $_perguntas = filtraperguntas($_POST['grade'], $perguntas);
-                if(is_null($_perguntas)):
-                        echo "Nenhuma questões com os criterios escolhidos [Error]";
-                endif;
-            else:
-                echo "Nenhum criterio selecionado [Notice]";
-            endif;
-        endif;
+<?php include 'layout/_head.php'; ?>
 
-         if(!empty($_perguntas)):?>  
-            <form name="choice" action="?step=finalize" method="POST">
-            <?php
-            pr($_perguntas);
-            foreach($_perguntas as $key => $_pergunta): ?>
-                <fieldset id="pergunta">
-                    <div style="display:block">
-                        <input type="checkbox" name="perguntas[]" value="<?php echo $key;?>" />
-                        <label for="<?php echo $key;?>" >
-                            <?php echo $_pergunta['pergunta'];?>
-                        </label>
-                    </div>
-                    <?php  if(file_exists("images/".$key.".jpg")):?>
-                        <img src="images/<?php echo $key?>.jpg" style="float:left" />
-                    <?php endif; ?>
-                    <div style="float:left">  
-                        <ol style="list-style-type: lower-alpha;">
-                            <?php foreach($_pergunta['repostas'] as $resposta) :?>
-                            <li><?php echo $resposta ?></li>
-                           
-                            <? endforeach;?>
-                        </ol>
-                    </div>
-                </fieldset>
-            <?php endforeach; ?>
-                <input value="Criar Prova" type="submit"/>
-            </form>
-        <?php endif;
-    elseif($_GET["step"] == "finalize"): 
-        pr($_POST);
-        
-    endif;
-    else:?>
-            <a href="?step=filter">Iniciar</a>
-            
-    <?php endif; ?>
-    </body>
-</html>
+			<div class="generic twotwenty">
+			    <h2>Criar um Teste</h2>
+			    <p>Se seu desejo for <strong>criar</strong> uma prova, basta  clicar no botão abaixo.</p>
+			    <form method="POST" action="test/create">
+					<input id="form" name="form" value="start" type="hidden" />
+					<button>Iniciar</button>
+			    </form>
+			</div>
+           	<div class="generic twotwenty">
+			    <h2>Take a Test</h2>
+			    <p>Description for <strong>Take a Test</strong></p>
+			</div>			
+           	<div class="generic twotwenty">
+			    <h2>Create a Survey</h2>
+			    <p>Description for <strong>Create a Survey</strong></p>
+			</div>			
+			<div class="generic twotwenty end">
+				<h2>Enter Parent Survey Data</h2>
+			  	<p>Description for <strong>Enter Parent Survey Data</strong></p>
+			</div>
+			<br class="clear" />
+			<div class="generic threeforty">
+			    <h2>Continuar Criação de Teste</h2>
+			    <p>Se desejar continuar a prova que estava fazendo digite o código da prova abaixo para <strong>continuar</strong>.</p>
+			    <form method="POST">
+					<input id="form" name="form" value="continue" type="hidden" />
+					<input id="code" class="ui-autocomplete" value="Digite o Código" name="code" />
+				<button>></button>
+			    </form>
+			</div>
+			<span class="generic threeforty"></span>
+
+			<div class="generic twotwenty end">
+			    <h2>Admnistrar</h2>
+			    <p>Para <strong>administrar</strong> o Banco de perguntas entre com o usuario e a senha.</p>
+			    <form method="POST">
+				<input id="form" name="form" value="login" type="hidden" />
+				<div class="input">
+				    <label for="username">Usuario:</label>
+				    <input id="username" value="" name="username" />
+				</div>
+				<div class="input">
+				    <label for="password">Senha:</label>
+				    <input id="password" value="" name="password" />
+				</div>
+				<button>Entrar</button>
+			    </form>
+			</div>
+         
+
+<?php include 'layout/_footer.php'; ?>
+			
+	<!--
+			Typogridphy Demo Page &mdash; Use this page <span class="amp">&amp;</span> its grids as a basis for your typographical front-end development.</h1></div>
+			<div class="generic nineforty"><h2>940px</h2></div>
+			<div class="generic twotwenty"><h2>220px</h2></div>
+			<div class="generic sevenhun end"><h2>700px</h2></div>
+			<div class="generic twoeighty break"><h2>280px</h2></div>
+			<div class="generic sixforty end"><h2>640px</h2></div>
+			<div class="generic threeforty break"><h2>340px</h2></div>
+			<div class="generic fiveeighty end"><h2>580px</h2></div>
+			<div class="generic fourhun break"><h2>400px</h2></div>
+			<div class="generic fivetwenty end"><h2>520px</h2></div>
+			<div class="generic foursixty break"><h2>460px</h2></div>
+			<div class="generic foursixty end"><h2>460px</h2></div>
+		<-->
